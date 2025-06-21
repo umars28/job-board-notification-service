@@ -21,6 +21,13 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse<List<NotificationResponse>>> getAll(@RequestParam String username) {
+        List<NotificationResponse> all = notificationService.getAllNotifications(username);
+        ApiResponse<List<NotificationResponse>> response = new ApiResponse<>(200, "Success", all);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping
     public ResponseEntity<ApiResponse<List<NotificationResponse>>> getLatest(@RequestParam String username) {
         List<NotificationResponse> list = notificationService.get5LatestNotification(username);

@@ -15,6 +15,13 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
+    public List<NotificationResponse> getAllNotifications(String username) {
+        return notificationRepository.findByReceiverUsernameOrderByCreatedAtDesc(username)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
     public List<NotificationResponse> get5LatestNotification(String username) {
         return notificationRepository.findTop5ByReceiverUsernameOrderByCreatedAtDesc(username)
                 .stream()
